@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Prenda">
+    <select id="getAllPrendas" resultType="pojos.Prenda">
+        SELECT * 
+        FROM prenda
+    </select>
+    
+    
+    <select id="getPrendaById" resultType="pojos.Prenda" parameterType="int">
+        SELECT *
+        FROM prenda
+        WHERE idPrenda = #{id}
+    </select> 
+    
+    <select id="getPrendaByDesc" resultType="pojos.Prenda" parameterType="String">
+        SELECT *
+        FROM prenda
+        WHERE prenda.descripcion LIKE #%{cadena}%
+    </select>
+    
+    <insert id="registrarPrenda" parameterType="pojos.Prenda">
+        INSERT INTO prenda (idPrenda, idCategoria, piezas, serie, porcentajePrestamo, idSubcategoria, descripcion)
+        VALUES (#{idPrenda}, #{idCategoria}, #{piezas}, #{serie},#{porcentajePrestamo}, #{idSubcategoria}, #{descripcion})
+    </insert>
+    
+    <update id="actualizarCatalogo" parameterType="pojos.Catalogo">
+        UPDATE prenda SET idCategoria =#{idCategoria}, piezas = #{piezas}, serie = #{serie}, porcentajePrestamo = #{porcentajePrestamo}, 
+        WHERE idPrenda = #{idprenda}
+    </update>
+    
+    <delete id="eliminarCatalogo" parameterType="int">
+        DELETE FROM prenda WHERE idPrenda = #{idPrenda}
+    </delete>
+</mapper>
